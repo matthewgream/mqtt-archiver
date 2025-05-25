@@ -10,7 +10,7 @@ function initialise(options) {
             servers: [
                 { server: 'mqtt://weather.local:1883', topics: ['weather/#', 'sensors/#', 'snapshots/#', 'server/#'] },
                 { server: 'mqtt://adsb-ostratakenebranna.local:1883', topics: ['adsb/#'] },
-                { server: 'mqtt://localhost:1883', topics: ['devices/#'] },
+                { server: 'mqtt://workshop.local:1883', topics: ['devices/#', 'server/#'] },
             ],
             clientId: 'archiver-collector-' + Math.random().toString(16).slice(2, 8),
         },
