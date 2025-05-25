@@ -1,0 +1,5 @@
+Archiver service for MQTT messages
+
+Connect to specified mqtt servers and subscribe tyo specified topics, 
+store topics locally in daily archives. compress daily and join and
+compress monthly. 
