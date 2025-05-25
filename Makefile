@@ -37,29 +37,6 @@ endef
 
 ##
 
-install_js_dir:
-	mkdir -p $(INSTALL_DIR)
-install_js_files: install_js_dir
-	cp -f $(TARGET) $(INSTALL_DIR)/$(SYSTEM)-$(TARGET)
-	chmod +x $(INSTALL_DIR)/$(SYSTEM)-$(TARGET)
-	for file in "$(INSTALL_FILES)"; do \
-		if [ -f "$$file" ]; then \
-			cp -f "$$file" "$(INSTALL_DIR)/$(SYSTEM)-$$file"; \
-			chmod +x "$(INSTALL_DIR)/$(SYSTEM)-$$file"; \
-		fi; \
-	done
-install_js_libs: install_js_dir
-	for lib in "$(INSTALL_LIBS)"; do \
-		if [ -f "$$lib" ]; then \
-			cp -f "$$lib" "$(INSTALL_DIR)/"; \
-		fi; \
-	done
-install_js_npm: install_js_dir
-	cp -f package.json $(INSTALL_DIR)/
-	cd $(INSTALL_DIR) && npm install --omit=dev
-
-##
-
 install_storage: storage.service
 	$(call install_systemd_depend,$(SYSTEM)-storage,storage)
 install_collector: collector.service
@@ -69,21 +46,13 @@ restart_collector:
 
 ##
 
-install_source: install_js_files install_js_libs install_js_npm
 install_service: install_storage install_collector
 restart_service: restart_collector
-
-install: install_source install_service
-update: install_source
+install: install_service
 restart: restart_service
-deploy: update restart
-	@echo "Deployment completed"
-clean:
-	rm -rf $(INSTALL_DIR)/*.js
 
 ##
 
 .PHONY: install_service install_storage install_collector \
-	install_source install_js_dir install_js_files install_js_libs install_js_npm \
 	restart_service restart_collector \
-	install update restart deploy clean
+	install restart 
