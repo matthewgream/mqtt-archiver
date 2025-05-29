@@ -25,7 +25,7 @@ export default [
 
     // Main configuration with only plugins that aren't already defined
     {
-        files: ['**/*.js', '**/*.cjs', '**/*.mjs'],
+        files: ['monitor', 'fetch', '**/*.js', '**/*.cjs', '**/*.mjs'],
         languageOptions: {
             ecmaVersion: 'latest',
             sourceType: 'script',
@@ -40,10 +40,10 @@ export default [
             'prefer-object-spread': preferObjectSpreadPlugin,
             '@getify/proper-ternary': properTernaryPlugin,
             '@getify/proper-arrows': properArrowsPlugin,
-            ternary: ternaryPlugin,
+            'ternary': ternaryPlugin,
             '@brettz9': brettz9Plugin,
-            googleappsscript: googleappsscriptPlugin,
-            security: securityPlugin,
+            'googleappsscript': googleappsscriptPlugin,
+            'security': securityPlugin,
             'security-node': securityNodePlugin,
         },
         rules: {
@@ -68,18 +68,22 @@ export default [
             'unicorn/prefer-at': 'off',
             'unicorn/no-useless-undefined': 'off',
             'unicorn/no-lonely-if': 'off',
+            'unicorn/no-await-expression-member': 'off',
+            'unicorn/prefer-global-this': 'off',
+            'unicorn/prefer-single-call': 'off',
+            'unicorn/prefer-json-parse-buffer': 'off',
 
             'sonarjs/no-clear-text-protocols': 'off',
             'sonarjs/prefer-single-boolean-return': 'off',
             'sonarjs/publicly-writable-directories': 'off',
             'sonarjs/pseudo-random': 'off',
             'sonarjs/hashing': 'off',
-            'sonarjs/os-command': 'off',
+            'sonarjs/content-length': 'off',
+            'sonarjs/slow-regex': 'off',
 
             'n/hashbang': 'off',
-            'n/no-process-exit': 'off',
+            'n/no-unsupported-features/node-builtins': 'off',
 
-            /*
             // ESLint core rules
             'max-depth': 'warn',
             'no-div-regex': 'warn',
@@ -89,12 +93,9 @@ export default [
             'no-return-assign': 'warn',
             'consistent-return': 'warn',
             'arrow-body-style': 'warn',
-            'no-unused-vars': 'off',
-            'no-useless-escape': 'off',
             'no-new-object': 'warn',
             'block-scoped-var': 'warn',
             'no-case-declarations': 'off',
-            'no-console': 'warn',
             'use-isnan': 'error',
             'dot-notation': 'warn',
             'object-shorthand': 'warn',
@@ -138,7 +139,6 @@ export default [
             'security-node/detect-crlf': 'off',
             'security-node/detect-insecure-randomness': 'off',
             'security-node/disable-ssl-across-node-server': 'off',
-*/
         },
     },
 

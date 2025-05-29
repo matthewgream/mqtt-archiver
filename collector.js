@@ -5,7 +5,7 @@
 
 const REPORT_PERIOD_DEFAULT = 30; // report output every this many minutes
 const MONTHLY_CHECK_HOUR = 4; // Run monthly tasks after 4:00 AM on the first day of each month
-const DAILY_CHECK_HOUR = 2; // Run monthly tasks after 2:00 AM on the first day of each month
+const DAILY_CHECK_HOUR = 2; // Run monthly tasks after 2:00 AM on the first day of each day
 const SCHEDULER_CHECK_INTERVAL = 60 * 60 * 1000; // Check every 60 minutes if tasks should run
 
 // -----------------------------------------------------------------------------------------------------------------------------------------

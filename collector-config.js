@@ -1,16 +1,16 @@
 // -----------------------------------------------------------------------------------------------------------------------------------------
 // -----------------------------------------------------------------------------------------------------------------------------------------
 
-function initialise(options) {
+function initialise(_options) {
     const conf = {
-	STORAGE: '/opt/storage/weather',
-	};
+        STORAGE: '/opt/storage/weather',
+    };
     const config = {
         mqtt: {
             servers: [
                 { server: 'mqtt://weather.local:1883', topics: ['weather/#', 'sensors/#', 'snapshots/#', 'server/#'] },
                 { server: 'mqtt://adsb-ostratakenebranna.local:1883', topics: ['adsb/#'] },
-                { server: 'mqtt://workshop.local:1883', topics: ['devices/#', 'server/#'] },
+                { server: 'mqtt://localhost:1883', topics: ['devices/#', 'server/#'] },
             ],
             clientId: 'archiver-collector-' + Math.random().toString(16).slice(2, 8),
         },

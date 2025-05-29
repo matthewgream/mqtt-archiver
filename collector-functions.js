@@ -40,7 +40,7 @@ class ReportCounter {
             this.lastUpdateTimes[key] = { times: [], lastTime: now };
         }
         this.counts[key]++;
-        const lastTime = this.lastUpdateTimes[key].lastTime;
+        const { lastTime } = this.lastUpdateTimes[key];
         if (lastTime !== now) {
             this.lastUpdateTimes[key].times.push(now - lastTime);
             if (this.lastUpdateTimes[key].times.length > 10) this.lastUpdateTimes[key].times.shift();
@@ -59,7 +59,7 @@ class ReportCounter {
             const countStr = Object.entries(this.counts)
                 .map(([key, count]) => {
                     let str = `${count}`;
-                    const times = this.lastUpdateTimes[key].times;
+                    const { times } = this.lastUpdateTimes[key];
                     if (times.length > 1) str += ` (avg ${(times.reduce((sum, time) => sum + time, 0) / times.length / 1000).toFixed(2)}s)`;
                     this.counts[key] = 0;
                     return key ? `'${key}': ${str}` : str;

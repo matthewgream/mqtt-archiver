@@ -15,7 +15,7 @@ function formatFileSize(bytes) {
     if (bytes === 0) return '0 B';
     const units = ['B', 'KB', 'MB', 'GB', 'TB'];
     const i = Math.floor(Math.log(bytes) / Math.log(1024));
-    return `${(bytes / Math.pow(1024, i)).toFixed(2)} ${units[i]}`;
+    return `${(bytes / 1024 ** i).toFixed(2)} ${units[i]}`;
 }
 
 // -----------------------------------------------------------------------------------------------------------------------------------------
@@ -76,14 +76,6 @@ function getCutoffDirectories(cutoffDateStr) {
         console.error(`snapshots: error reading directories: ${e.message}`);
         return [];
     }
-}
-
-function msUntilNextTimelapseCheck() {
-    const now = new Date();
-    const target = new Date(now);
-    target.setHours(6, 0, 0, 0);
-    if (now >= target) target.setDate(target.getDate() + 1);
-    return target - now;
 }
 
 // -----------------------------------------------------------------------------------------------------------------------------------------
@@ -171,10 +163,7 @@ function __snapshotToTimelapse(dateDir) {
             });
         });
 
-        if (ffmpegProcess && ffmpegProcess.stderr)
-            ffmpegProcess.stderr.on('data', (data) => {
-                console.log(prefix + `execute ffmpeg: ${data.toString().trim()}`);
-            });
+        if (ffmpegProcess && ffmpegProcess.stderr) ffmpegProcess.stderr.on('data', (data) => console.log(prefix + `execute ffmpeg: ${data.toString().trim()}`));
     });
 }
 
@@ -254,8 +243,15 @@ async function snapshotToTimelapse() {
 // -----------------------------------------------------------------------------------------------------------------------------------------
 
 function snapshotStore(type, message) {
-    if (type == 'imagedata') return __snapshotStoreImagedata(message);
-    else if (type == 'metadata') return __snapshotStoreMetadata(message);
+    if (type == 'imagedata') __snapshotStoreImagedata(message);
+    else if (type == 'metadata') __snapshotStoreMetadata(message);
+}
+
+// -----------------------------------------------------------------------------------------------------------------------------------------
+
+function snapshotDaily() {
+    snapshotToTimelapse();
+    snapshotMaintain();
 }
 
 // -----------------------------------------------------------------------------------------------------------------------------------------
@@ -265,15 +261,6 @@ function snapshotBegin(config) {
     __timelapseDirectory = config.storage.timelapse || 'timelapse';
     if (!fs.existsSync(__snapshotsDirectory)) fs.mkdirSync(__snapshotsDirectory, { recursive: true });
     if (!fs.existsSync(__timelapseDirectory)) fs.mkdirSync(__timelapseDirectory, { recursive: true });
-    const timeToNextCheck = msUntilNextTimelapseCheck();
-    __timelapseTimer = setTimeout(() => {
-        snapshotToTimelapse();
-        snapshotMaintain();
-        __timelapseTimer = setInterval(snapshotToTimelapse, 24 * 60 * 60 * 1000);
-    }, timeToNextCheck);
-    console.log(`snapshots: timelapse: startup check, then next check in ${Math.floor(timeToNextCheck / 1000 / 60)} minutes`);
-    snapshotToTimelapse();
-    snapshotMaintain();
     console.log(`snapshots: loaded using 'snapshots-path=${__snapshotsDirectory}, timelapse-path=${__timelapseDirectory}'`);
 }
 
@@ -293,6 +280,7 @@ function snapshotEnd() {
 module.exports = {
     begin: snapshotBegin,
     end: snapshotEnd,
+    daily: snapshotDaily,
     process: (topic, message) => snapshotStore(topic.split('/')[1], message),
 };
 

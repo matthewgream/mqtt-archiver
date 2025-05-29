@@ -23,8 +23,8 @@ function mqttSubscribe(server) {
 }
 
 function mqttBegin(receiver) {
-    const clientId = config.clientId;
-    config.servers.forEach((server) => {
+    const { clientId, servers } = config;
+    servers.forEach((server) => {
         const options = { clientId };
         if (server.username) options.username = server.username;
         if (server.password) options.password = server.password;
