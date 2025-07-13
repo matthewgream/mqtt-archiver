@@ -24,12 +24,12 @@ const archiverConf = {
     messages: {
         enabled: true,
         functions: require('./collector-messages.js'),
-        matches: (topic) => config.topics.messages?.some((t) => topic.startsWith(t)) ?? [],
+        matches: (topic) => config.topics.messages?.some((t) => topic.startsWith(t)),
     },
     snapshots: {
         enabled: true,
         functions: require('./collector-snapshots.js'),
-        matches: (topic) => config.topics.snapshots?.some((t) => topic.startsWith(t)) ?? [],
+        matches: (topic) => config.topics.snapshots?.some((t) => topic.startsWith(t)),
     },
 };
 
