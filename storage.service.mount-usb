@@ -1,7 +1,7 @@
 [Unit]
 Description=MQTT Archiver Storage Service
-Requires=opt-storage-usb1.mount opt-storage-usb2.mount
-After=opt-storage-usb1.mount opt-storage-usb2.mount
+Requires=opt-storage-usb2.mount
+After=opt-storage-usb2.mount
 
 [Service]
 Type=oneshot

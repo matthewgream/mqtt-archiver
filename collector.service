@@ -8,6 +8,7 @@ After=mqtt-archiver-storage.service
 [Service]
 Type=simple
 ExecStart=/opt/mqtt-archiver/collector.js
+SyslogIdentifier=mqtt-archiver
 TimeoutStopSec=15s
 KillMode=mixed
 Restart=on-failure
