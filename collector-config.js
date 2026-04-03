@@ -8,9 +8,10 @@ function initialise(_options) {
     const config = {
         mqtt: {
             servers: [
-                { server: 'mqtt://weather.local:1883', topics: ['weather/#', 'sensors/#', 'snapshots/#', 'server/#'] },
-                { server: 'mqtt://adsb-ostratakenebranna.local:1883', topics: ['adsb/#'] },
-                { server: 'mqtt://localhost:1883', topics: ['devices/#', 'server/#'] },
+                { server: 'mqtt://weather.local:1883', topics: ['weather/#', 'sensors/#', 'snapshots/#', 'server/#', 'system/#' ] },
+                { server: 'mqtt://adsb-ostratakenebranna.local:1883', topics: ['adsb/#', 'server/#', 'system/#'] },
+                { server: 'mqtt://badtuna.local:1883', topics: ['system/#' ] },
+                { server: 'mqtt://localhost:1883', topics: ['devices/#', 'server/#', 'system/#'] },
             ],
             clientId: 'archiver-collector-' + Math.random().toString(16).slice(2, 8),
         },
@@ -20,7 +21,7 @@ function initialise(_options) {
             timelapse: conf.STORAGE + '/timelapse',
         },
         topics: {
-            messages: ['weather/', 'sensors/', 'server/', 'adsb/', 'devices/'],
+            messages: ['weather/', 'sensors/', 'server/', 'adsb/', 'devices/', 'system/'],
             snapshots: ['snapshots/'],
         },
     };
