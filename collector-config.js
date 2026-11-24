@@ -8,10 +8,11 @@ function initialise(_options) {
     const config = {
         mqtt: {
             servers: [
-                { server: 'mqtt://weather.local:1883', topics: ['weather/#', 'sensors/#', 'snapshots/#', 'server/#', 'system/#' ] },
-                { server: 'mqtt://adsb-ostratakenebranna.local:1883', topics: ['adsb/#', 'server/#', 'system/#'] },
+                // snapshots/# (the wide camera's stills) comes from vader over workshop's bridge, so it crosses the network once
+                { server: 'mqtt://vader.local:1883', topics: ['weather/#', 'sensors/#', 'server/#', 'system/#' ] },
+                { server: 'mqtt://adsb.local:1883', topics: ['adsb/#', 'server/#', 'system/#'] },
                 { server: 'mqtt://badtuna.local:1883', topics: ['system/#' ] },
-                { server: 'mqtt://localhost:1883', topics: ['devices/#', 'server/#', 'system/#'] },
+                { server: 'mqtt://localhost:1883', topics: ['devices/#', 'snapshots/#', 'server/#', 'system/#'] },
             ],
             clientId: 'archiver-collector-' + Math.random().toString(16).slice(2, 8),
         },

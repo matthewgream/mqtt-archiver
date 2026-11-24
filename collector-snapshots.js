@@ -94,7 +94,7 @@ function __snapshotToTimelapse(dateDir) {
         try {
             files = fs
                 .readdirSync(snapshotsSrc)
-                .filter((file) => file.startsWith(`snapshot_${dateDir}`))
+                .filter((file) => file.startsWith(`snapshot_${dateDir}`) && file.endsWith('.jpg')) // the stills only: the wide camera's vehicle results sit beside them
                 .sort()
                 .map((file) => path.join(snapshotsSrc, file));
         } catch (e) {
