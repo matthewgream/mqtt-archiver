@@ -12,7 +12,13 @@ function initialise(_options) {
                 { server: 'mqtt://vader.local:1883', topics: ['weather/#', 'sensors/#', 'server/#', 'system/#' ] },
                 { server: 'mqtt://adsb.local:1883', topics: ['adsb/#', 'server/#', 'system/#'] },
                 { server: 'mqtt://badtuna.local:1883', topics: ['system/#' ] },
-                { server: 'mqtt://localhost:1883', topics: ['devices/#', 'snapshots/#', 'server/#', 'system/#'] },
+                // sensors/#: the house's electricity meter (sensors/p1meter: p1metertomqtt, /opt/p1metertomqtt) and ventilation unit
+                // (sensors/evoair: evoaira100sg3tomqtt, /opt/evoaira100sg3tomqtt)
+                // thermia/#: the Thermia's values (thermia/values: thermia-log, /opt/thermia)
+                { server: 'mqtt://localhost:1883', topics: ['devices/#', 'snapshots/#', 'server/#', 'system/#', 'sensors/#', 'thermia/#'] },
+                // the heating: the Caleon's decoded CAN (caleon/#: caleon2mqtt) and thermia-caleon's state (thermia/caleon/state); its
+                // system/# comes over workshop's bridge
+                { server: 'mqtt://caleon-canbus.local:1883', topics: ['caleon/#', 'thermia/#'] },
             ],
             clientId: 'archiver-collector-' + Math.random().toString(16).slice(2, 8),
         },
@@ -22,7 +28,7 @@ function initialise(_options) {
             timelapse: conf.STORAGE + '/timelapse',
         },
         topics: {
-            messages: ['weather/', 'sensors/', 'server/', 'adsb/', 'devices/', 'system/'],
+            messages: ['weather/', 'sensors/', 'server/', 'adsb/', 'devices/', 'system/', 'caleon/', 'thermia/'],
             snapshots: ['snapshots/'],
         },
     };
