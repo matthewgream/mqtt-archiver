@@ -14,8 +14,9 @@ function initialise(_options) {
                 // directly as well, each of their messages was archived twice (from August 2026 to 2026-11-28)
                 { server: 'mqtt://adsb.local:1883', topics: ['adsb/#', 'server/#'] },
                 // the LAN scan (devices scanner) is system/devices/scan, under system/#, since 2026-11-28 (devices/scan before)
-                // sensors/#: the house's electricity meter (sensors/p1meter: p1metertomqtt, /opt/p1metertomqtt) and ventilation unit
-                // (sensors/evoair: evoaira100sg3tomqtt, /opt/evoaira100sg3tomqtt)
+                // p1meter: the house's electricity meter (p1metertomqtt, /opt/p1metertomqtt), evoair: the ventilation unit
+                // (evoaira100sg3tomqtt, /opt/evoaira100sg3tomqtt) - sensors/p1meter and sensors/evoair until 2026-11-28; sensors/# is
+                // vader's (radiation), over workshop's bridge
                 // thermia/#: the Thermia's values (thermia/values: thermia-log, /opt/thermia)
                 // droplet-185C/: the water flow meter's state (volume, flow) and leak, on change - not its health, 'online' every second
                 // plejd/#: the lighting - each device's state (retained), events, requests, the site (plejdtomqtt, /opt/plejdtomqtt)
@@ -27,7 +28,7 @@ function initialise(_options) {
                 // /opt/badtuna/src/display-mqtt), over workshop's bridge
                 {
                     server: 'mqtt://localhost:1883',
-                    topics: ['snapshots/#', 'server/#', 'system/#', 'sensors/#', 'weather/#', 'thermia/#', 'droplet-185C/state', 'droplet-185C/leak', 'plejd/#', 'zigbee2mqtt/+', 'yale/#', 'lgthinq/#', 'smarthq/#', 'badtuna/#'],
+                    topics: ['snapshots/#', 'server/#', 'system/#', 'sensors/#', 'weather/#', 'p1meter/#', 'evoair/#', 'thermia/#', 'droplet-185C/state', 'droplet-185C/leak', 'plejd/#', 'zigbee2mqtt/+', 'yale/#', 'lgthinq/#', 'smarthq/#', 'badtuna/#'],
                 },
                 // the heating: the Caleon's decoded CAN (caleon/#: caleon2mqtt) and thermia-caleon's state (thermia/caleon/state); its
                 // system/# comes over workshop's bridge
@@ -41,7 +42,7 @@ function initialise(_options) {
             timelapse: conf.STORAGE + '/timelapse',
         },
         topics: {
-            messages: ['weather/', 'sensors/', 'server/', 'adsb/', 'system/', 'caleon/', 'thermia/', 'droplet-185C/', 'plejd/', 'zigbee2mqtt/', 'yale/', 'lgthinq/', 'smarthq/', 'badtuna/'],
+            messages: ['weather/', 'sensors/', 'p1meter', 'evoair', 'server/', 'adsb/', 'system/', 'caleon/', 'thermia/', 'droplet-185C/', 'plejd/', 'zigbee2mqtt/', 'yale/', 'lgthinq/', 'smarthq/', 'badtuna/'],
             snapshots: ['snapshots/'],
         },
     };
