@@ -8,10 +8,11 @@ function initialise(_options) {
     const config = {
         mqtt: {
             servers: [
-                // snapshots/# (the wide camera's stills) comes from vader over workshop's bridge, so it crosses the network once
-                { server: 'mqtt://vader.local:1883', topics: ['weather/#', 'sensors/#', 'server/#', 'system/#' ] },
-                { server: 'mqtt://adsb.local:1883', topics: ['adsb/#', 'server/#', 'system/#'] },
-                { server: 'mqtt://badtuna.local:1883', topics: ['system/#' ] },
+                // snapshots/# (the wide camera's stills) comes from vader over workshop's bridge, so it crosses the network once; and every
+                // host's system/# comes over workshop's bridges (mosquitto's hostmon-bridge.conf), so it's taken from localhost only: read
+                // from vader, adsb and badtuna directly as well, each of their messages was archived twice (from August 2026 to 2026-11-28)
+                { server: 'mqtt://vader.local:1883', topics: ['weather/#', 'sensors/#', 'server/#'] },
+                { server: 'mqtt://adsb.local:1883', topics: ['adsb/#', 'server/#'] },
                 // sensors/#: the house's electricity meter (sensors/p1meter: p1metertomqtt, /opt/p1metertomqtt) and ventilation unit
                 // (sensors/evoair: evoaira100sg3tomqtt, /opt/evoaira100sg3tomqtt)
                 // thermia/#: the Thermia's values (thermia/values: thermia-log, /opt/thermia)
