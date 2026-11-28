@@ -13,6 +13,7 @@ function initialise(_options) {
                 // archive's server) - read from vader directly before. Every host's system/# too: read from vader, adsb and badtuna
                 // directly as well, each of their messages was archived twice (from August 2026 to 2026-11-28)
                 { server: 'mqtt://adsb.local:1883', topics: ['adsb/#', 'server/#'] },
+                // the LAN scan (devices scanner) is system/devices/scan, under system/#, since 2026-11-28 (devices/scan before)
                 // sensors/#: the house's electricity meter (sensors/p1meter: p1metertomqtt, /opt/p1metertomqtt) and ventilation unit
                 // (sensors/evoair: evoaira100sg3tomqtt, /opt/evoaira100sg3tomqtt)
                 // thermia/#: the Thermia's values (thermia/values: thermia-log, /opt/thermia)
@@ -26,7 +27,7 @@ function initialise(_options) {
                 // /opt/badtuna/src/display-mqtt), over workshop's bridge
                 {
                     server: 'mqtt://localhost:1883',
-                    topics: ['devices/#', 'snapshots/#', 'server/#', 'system/#', 'sensors/#', 'weather/#', 'thermia/#', 'droplet-185C/state', 'droplet-185C/leak', 'plejd/#', 'zigbee2mqtt/+', 'yale/#', 'lgthinq/#', 'smarthq/#', 'badtuna/#'],
+                    topics: ['snapshots/#', 'server/#', 'system/#', 'sensors/#', 'weather/#', 'thermia/#', 'droplet-185C/state', 'droplet-185C/leak', 'plejd/#', 'zigbee2mqtt/+', 'yale/#', 'lgthinq/#', 'smarthq/#', 'badtuna/#'],
                 },
                 // the heating: the Caleon's decoded CAN (caleon/#: caleon2mqtt) and thermia-caleon's state (thermia/caleon/state); its
                 // system/# comes over workshop's bridge
@@ -40,7 +41,7 @@ function initialise(_options) {
             timelapse: conf.STORAGE + '/timelapse',
         },
         topics: {
-            messages: ['weather/', 'sensors/', 'server/', 'adsb/', 'devices/', 'system/', 'caleon/', 'thermia/', 'droplet-185C/', 'plejd/', 'zigbee2mqtt/', 'yale/', 'lgthinq/', 'smarthq/', 'badtuna/'],
+            messages: ['weather/', 'sensors/', 'server/', 'adsb/', 'system/', 'caleon/', 'thermia/', 'droplet-185C/', 'plejd/', 'zigbee2mqtt/', 'yale/', 'lgthinq/', 'smarthq/', 'badtuna/'],
             snapshots: ['snapshots/'],
         },
     };
