@@ -22,9 +22,11 @@ function initialise(_options) {
                 // yale/#: the front door lock - its state (retained), events, requests (yaletomqtt, /opt/yaletomqtt)
                 // lgthinq/#: the fridge and freezer - their state (retained), changes, alerts, requests (lgthinqtomqtt, /opt/lgthinqtomqtt)
                 // smarthq/#: the dish drawers - their state (retained), changes, requests (smarthqtomqtt, /opt/smarthqtomqtt)
+                // badtuna/#: the hot tub - its state (retained, plain text per field), the settings asked of it (display-mqtt on badtuna,
+                // /opt/badtuna/src/display-mqtt), over workshop's bridge
                 {
                     server: 'mqtt://localhost:1883',
-                    topics: ['devices/#', 'snapshots/#', 'server/#', 'system/#', 'sensors/#', 'weather/#', 'thermia/#', 'droplet-185C/state', 'droplet-185C/leak', 'plejd/#', 'zigbee2mqtt/+', 'yale/#', 'lgthinq/#', 'smarthq/#'],
+                    topics: ['devices/#', 'snapshots/#', 'server/#', 'system/#', 'sensors/#', 'weather/#', 'thermia/#', 'droplet-185C/state', 'droplet-185C/leak', 'plejd/#', 'zigbee2mqtt/+', 'yale/#', 'lgthinq/#', 'smarthq/#', 'badtuna/#'],
                 },
                 // the heating: the Caleon's decoded CAN (caleon/#: caleon2mqtt) and thermia-caleon's state (thermia/caleon/state); its
                 // system/# comes over workshop's bridge
@@ -38,7 +40,7 @@ function initialise(_options) {
             timelapse: conf.STORAGE + '/timelapse',
         },
         topics: {
-            messages: ['weather/', 'sensors/', 'server/', 'adsb/', 'devices/', 'system/', 'caleon/', 'thermia/', 'droplet-185C/', 'plejd/', 'zigbee2mqtt/', 'yale/', 'lgthinq/', 'smarthq/'],
+            messages: ['weather/', 'sensors/', 'server/', 'adsb/', 'devices/', 'system/', 'caleon/', 'thermia/', 'droplet-185C/', 'plejd/', 'zigbee2mqtt/', 'yale/', 'lgthinq/', 'smarthq/', 'badtuna/'],
             snapshots: ['snapshots/'],
         },
     };
