@@ -8,10 +8,10 @@ function initialise(_options) {
     const config = {
         mqtt: {
             servers: [
-                // snapshots/# (the wide camera's stills) comes from vader over workshop's bridge, so it crosses the network once; and every
-                // host's system/# comes over workshop's bridges (mosquitto's hostmon-bridge.conf), so it's taken from localhost only: read
-                // from vader, adsb and badtuna directly as well, each of their messages was archived twice (from August 2026 to 2026-11-28)
-                { server: 'mqtt://vader.local:1883', topics: ['weather/#', 'sensors/#', 'server/#'] },
+                // vader's topics all come over workshop's bridges (mosquitto's hostmon-bridge.conf), so they're taken from localhost:
+                // snapshots/# (the wide camera's stills), and since 2026-11-28 weather/#, sensors/# (radiation) and server/# (mainview, the
+                // archive's server) - read from vader directly before. Every host's system/# too: read from vader, adsb and badtuna
+                // directly as well, each of their messages was archived twice (from August 2026 to 2026-11-28)
                 { server: 'mqtt://adsb.local:1883', topics: ['adsb/#', 'server/#'] },
                 // sensors/#: the house's electricity meter (sensors/p1meter: p1metertomqtt, /opt/p1metertomqtt) and ventilation unit
                 // (sensors/evoair: evoaira100sg3tomqtt, /opt/evoaira100sg3tomqtt)
@@ -24,7 +24,7 @@ function initialise(_options) {
                 // smarthq/#: the dish drawers - their state (retained), changes, requests (smarthqtomqtt, /opt/smarthqtomqtt)
                 {
                     server: 'mqtt://localhost:1883',
-                    topics: ['devices/#', 'snapshots/#', 'server/#', 'system/#', 'sensors/#', 'thermia/#', 'droplet-185C/state', 'droplet-185C/leak', 'plejd/#', 'zigbee2mqtt/+', 'yale/#', 'lgthinq/#', 'smarthq/#'],
+                    topics: ['devices/#', 'snapshots/#', 'server/#', 'system/#', 'sensors/#', 'weather/#', 'thermia/#', 'droplet-185C/state', 'droplet-185C/leak', 'plejd/#', 'zigbee2mqtt/+', 'yale/#', 'lgthinq/#', 'smarthq/#'],
                 },
                 // the heating: the Caleon's decoded CAN (caleon/#: caleon2mqtt) and thermia-caleon's state (thermia/caleon/state); its
                 // system/# comes over workshop's bridge
